@@ -1,0 +1,654 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{lmodern}
+\usepackage{physics}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{siunitx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\sisetup{locale=DE}
+
+\renewcommand\lstlistingname{Source Code}
+\renewcommand\lstlistlistingname{Source Code}
+
+\newcommand{\carb}[1]{^{#1}\mathrm{C}}
+\newcommand{\tritium}{_1^3\mathrm{H}}
+\newcommand{\helium}{_2^3\mathrm{He}}
+\newcommand{\polonium}{^{210}_{84}\mathrm{Po}}
+\newcommand{\lead}{^{206}_{82}\mathrm{Pb}}
+\DeclareSIUnit\year{a}
+
+\begin{document}
+\pagestyle{fancy}
+\lhead{Prime Logic: Math Algorithms in Computer Science}
+\rhead{Zarabeth}
+
+\section*{Tasks For Practice}
+
+\section{Divisibility/Primes/Co-prime/GCD/LCM}
+
+\subsection*{Zeus and The Birthday Paradox}
+Zeus has recently found an interesting concept called the Birthday Paradox. It states that given a random set of 23 people, there is around $50\%$ chance that some two of them share the same birthday. Zeus finds this very interesting, and decides to test this with the inhabitants of Tedland.
+\\ \\
+In Tedland, there are $2^n$ days in a year. Zeus wants to interview $k$ people from Tedland, each of them has birthday in one of $2^n$ days (each day with equal probability). He is interested in the probability of at least two of them have the birthday at the same day.
+\\ \\
+Zeus knows that the answer can be written as an irreducible fraction $\frac{A}{B}$. He wants to find the values of $A$ and $B$ (he does not like to deal with floating point numbers). Can you help him?
+
+\subsection*{Input}
+The first and only line of the input contains two integers $n$ and $k$ $(1 \leq n\leq 10^{18},2 \leq k\leq 10^{18})$, meaning that there are $2^n$ days in a year and that Zeus wants to interview exactly $k$ people.
+\subsection*{Output}
+If the probability of at least two $k$ people having the same birthday in $2n$ days long year equals $\frac{A}{B}(A \geq 0, B\geq1,$ gcd$(A,B)=1)$, print the $A$ and $B$ in a single line.
+\\ \\
+Since these numbers may be too large, print them modulo $10^6+3$. Note that $A$ and $B$ must be coprime \textbf{before} their remainders modulo $10^6+3$ are taken.
+
+\subsection*{Examples}
+input: \\
+3 2 \\
+output: \\
+1 8 \\
+\\
+input: \\
+1 3 \\
+output: \\
+1 1 \\
+\\
+input: \\
+4 3 \\
+output: \\
+23 128 
+
+\subsection*{Note}
+In the first sample case, there are $2^3=8$ days in Tedland. The probability that 2 people have the same birthday among 2 people is clearly $\frac{1}{8}$, so $A=1, B=8$.
+\\ \\
+In the second sample case, there are only $2^1=2$ days in Tedland, but there are 3 people, so it is guaranteed that two of them have the same birthday. Thus, the probability is 1 and $A=B=1$.
+
+\subsection*{Solution}
+
+\begin{lstlisting}[language=C++, caption={Zeus and The Birthday Paradox},label={1st:code}, mathescape=true, breaklines=true]
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+
+const int MOD = 1e6 + 3;
+
+ll power(ll base, ll exp)
+{
+	ll ans = 1;
+    while(exp)
+    {
+		if(exp&1) ans = (ans*base)%MOD;
+		base = (base*base)%MOD;
+		exp>>=1;
+	}
+    return ans;
+}
+
+int main()
+{
+	ios_base::sync_with_stdio(false); cin.tie(0);
+	ll n, k;
+	cin >> n >> k;
+	if(n <= 63 && k > (1LL<<n))
+	{
+		cout << 1 << " " << 1;
+		return 0;
+	}
+	ll v2 = 0;
+	int digits = __builtin_popcountll(k - 1);
+	v2 = k - 1 - digits;
+	ll ntmp = n % (MOD - 1);
+	if(ntmp < 0) ntmp += (MOD - 1);
+	ll ktmp = k % (MOD - 1);
+	if(ktmp < 0) ktmp += (MOD - 1);
+	ll v2tmp = v2 % (MOD - 1);
+	if(v2tmp < 0) v2tmp += (MOD - 1);
+	ll exponent = ntmp*(ktmp - 1) - v2tmp;
+	exponent %= (MOD - 1);
+	if(exponent < 0) exponent += MOD - 1;
+	ll denom = power(2, exponent);
+	ll numpart = 0;
+	if(k - 1 >= MOD)
+	{
+		numpart = 0;
+	}
+	else
+	{
+		ll prod = 1;
+		ll ntmp2 = power(2, ntmp);
+		prod = power(2, v2tmp);
+		prod = power(prod, MOD - 2);
+		if(prod < 0) prod += MOD;
+		for(ll y = 1; y <= k - 1; y++)
+		{
+			prod = (prod * (ntmp2 - y))%MOD;
+		}
+		numpart = prod;
+	}
+	ll num = (denom - numpart)%MOD;
+	num %= MOD; denom %= MOD;
+	if(num < 0) num += MOD;
+	if(denom < 0) denom += MOD;
+	cout << num << " " << denom;
+	return 0;
+}
+\end{lstlisting}
+
+
+\section{Diophantine Equations}
+
+\subsection*{\hyperlink{https://codeforces.com/problemset/problem/7/C}{\underline{Line}}} 
+A line on the plane is described by an equation $Ax+By+C=0$. You are to find any point on this line, whose coordinates are integer numbers from $-5 \cdot 10^{18}$ to $5 \cdot 10^{18}$ inclusive, or to find out that such points do not exist.
+
+\subsection*{Input}
+The first line contains three integers $A$, $B$ and $C$ $(-2 \cdot 10^9 \leq A,B,C \leq 2 \cdot 10^9)$ — corresponding coefficients of the line equation. It is guaranteed that $A^2+B^2>0$.
+
+\subsection*{Output}
+If the required point exists, output its coordinates, otherwise output $-1$.
+
+\subsection*{Examples}
+input: \\
+2 5 3 \\
+output: \\
+6 -3 
+\subsection*{Solution}
+
+\begin{lstlisting}[language=C++, caption={Line},label={1st:code}, mathescape=true, breaklines=true]
+
+\end{lstlisting}
+
+
+\section{Functions: Counting Divisors/Divisor Sum}
+
+\subsection*{\hyperlink{https://lightoj.com/problem/efficient-pseudo-code}{\underline{Efficient Pseudo Code}}}
+
+Sometimes it's quite useful to write pseudo codes for problems. Actually you can write the necessary steps to solve a particular problem. In this problem you are given a pseudo code to solve a problem and you have to implement the pseudo code efficiently. Simple! Isn't it? :)
+\\
+
+\begin{lstlisting}[language=C++, label={1st:code}, mathescape=true, breaklines=true]
+pseudo code
+
+{
+
+    take two integers n and m
+
+    let p = n ^ m (n to the power m)
+
+    let sum = summation of all the divisors of p
+
+    let result = sum MODULO 1000,000,007
+
+}
+\end{lstlisting}
+\\
+Now, given n and m you have to find the desired result from the pseudo code. For example if $n = 12$ and $m = 2$. Then if we follow the pseudo code, we get:
+
+\begin{lstlisting}[language=C++, label={1st:code}, mathescape=true, breaklines=true]
+pseudo code
+
+{
+
+    take two integers n and m
+
+    so, n = 12 and m = 2
+
+    let p = n ^ m (n to the power m)
+
+    so, p = 144
+
+    let sum = summation of all the divisors of p
+
+    so, sum = 403, since the divisors of p are:
+        {1, 2, 3, 4, 6, 8, 9, 12, 16, 18, 24, 36, 48, 72, 144}
+
+    let result = sum MODULO 1000,000,007
+
+    so, result = 403
+
+\end{lstlisting}
+
+
+\subsection*{Input}
+Input starts with an integer $T (\leq 5000)$, denoting the number of test cases.
+\\ \\
+Each test case will contain two integers, $n (1 \leq n)$ and $m (0 \leq m)$. Each of $n$ and $m$ will be fit into a 32 bit signed integer.
+
+\subsection*{Output}
+For each case of input you have to print the case number and the result according to the pseudo code.
+
+\subsection*{Examples}
+input: \\
+3\\
+12 2\\
+12 1\\
+36 2\\
+\\
+output: \\
+Case 1: 403 \\
+Case 2: 28 \\
+Case 3: 3751 
+
+\subsection*{Solution}
+
+\begin{lstlisting}[language=C++, caption={Efficient Pseudo Code}, label={1st:code}, mathescape=true, breaklines=true]
+
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long LL;
+
+LL mod = 1000000007;
+
+vector<LL> primes;
+map<LL, LL> times;
+
+LL bigmod (LL b, LL p, LL m)
+{
+    if (p==0) return 1;
+    if (p%2==0) {
+        LL x=bigmod(b, p/2, m)%m;
+        return (x*x)%m;
+    }
+    else return (b%m * bigmod(b, p-1, m))%m;
+}
+
+LL inv_mod(LL a, LL m) {
+    return bigmod(a, m-2, m);
+}
+
+void factorization(long long n) {
+    if (n % 2 == 0) {
+        primes.push_back(2);
+        while (n % 2 == 0) {
+            times[2]++;
+            n /= 2;
+        }
+    }
+    for (long long d = 3; d * d <= n; d += 2) { 
+        if (n % d == 0) {
+        primes.push_back(d);
+            while (n % d == 0) {
+                times[d]++;
+                n /= d;
+            }
+        }
+    }
+    if (n > 1) {
+        if (!times[n])
+            primes.push_back(n);
+        times[n]++;
+    }
+}
+
+int main()
+{
+    int t, ca=1;
+    cin>>t;
+    while (t--) {
+        primes.clear();
+        times.clear();
+        LL n, m;
+        cin>>n>>m;
+
+        factorization(n);
+        for (auto i: primes) {
+            times[i] *= m;
+        }
+
+        LL ans = 1;
+
+        for (auto i: primes) {
+            LL now = bigmod(i, times[i] + 1, mod);
+            now -= 1;
+            if (now < 0)  // The program may give a negative result for modulo of negative numbers
+                now += mod;  // So we convert it to a positive value by adding mod
+            LL low = inv_mod(i - 1, mod);
+            now *= low;
+            ans = ((ans % mod) * (now % mod)) % mod;
+        }
+        cout<<"Case "<<ca++<<": "<<ans<<endl;
+    }
+
+    return 0;
+}
+
+\end{lstlisting}
+
+
+\section{Function: Totient and Similar}
+\subsection*{\hyperlink{https://lightoj.com/problem/mathematically-hard}{\underline{Mathematically Hard}}}
+Mathematically some problems look hard. But with the help of the computer, some problems can be easily solvable.
+\\ \\
+In this problem, you will be given two integers $a$ and $b$. You have to find the summation of the scores of the numbers from a to b (inclusive). The score of a number is defined as the following function:
+
+$$ score (x)=n_2$ ,n<x$ and gcd$(n,x)=1$$$
+
+\\ \\
+To illustrate, $n$ is the number of relatively prime numbers with $x$, which are smaller than $x$.
+\\ \\
+For example, For 6, the relatively prime numbers with 6 are ${1, 5}$. So, score $(6) = 22 = 4$. For 16, the relatively prime numbers with 16 are ${1, 3, 5, 7, 9, 11, 13, 15}$. So, score $(16) = 82 = 64$.
+\\ \\
+Now, you have to solve this task.
+
+\subsection*{Input}
+Input starts with an integer $T (\leq 10^5)$, denoting the number of test cases.
+\\ \\
+Each case will contain two integers $a$ and $b$ $(2 \leq a \leq b \leq 5 \cdot 10^6)$.
+\subsection*{Output}
+For each case, print the case number and the summation of all the scores from $a$ to $b$.
+
+\subsection*{Examples}
+input: \\
+3 \\
+6 6 \\
+8 8 \\
+2 20 
+\\ \\
+output: \\
+Case 1: 4 \\
+Case 2: 16 \\
+Case 3: 1237 \\
+
+\subsection*{Note}
+Two integers are said to be relatively prime, if the greatest common divisor for them is 1.
+\\ \\
+Euler's totient function  $\phi (n)$ applied to a positive integer $n$ is defined to be the number of positive integers less than or equal to n that are relatively prime to $n$. $\phi (n)$ is read \textbf{"phi of n"}.
+\\ \\
+Given the general prime factorization of $n = p_1^{e1} p_2^{e2} …p_m^{em}$, one can compute  $\phi (n)$ using the formula:
+
+$$\phi (n)=n \left(1 - \frac{1}{p_1}\right)\left(1 - \frac{1}{p_2}\right)…\left(1 - \frac{1}{p_m}\right)$$
+
+\subsection*{Solution}
+
+\begin{lstlisting}[language=C++, caption={Mathematically Hard}, label={1st:code}, mathescape=true, breaklines=true]
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define M 5000000
+
+int phi[M+2];
+unsigned long long phiSum[M+2];
+
+void calculatePhi(){
+    for(int i=2; i<=M; i++)
+        phi[i] = i;
+    for(int i =2; i<=M; i++)
+        if(phi[i]==i)
+            for(int j=i; j<=M; j+=i)
+                phi[j]-=phi[j]/i;
+}
+
+int main(){
+
+    calculatePhi();
+    phiSum[1] = 0;
+
+    for(int i=2; i<=M; i++)
+        phiSum[i]= ((unsigned long long)phi[i]* (unsigned long long)phi[i])+phiSum[i-1];
+
+    // for(int i=1; i<10; ++i)
+    //  cout<<phi[i]<<" "<<phiSum[i]<<endl;
+    // deb(phi[2]);
+    // deb(phiSum[20]);
+
+    int tc,t(1);
+    for(scanf("%d",&tc); tc; ++t,--tc){
+        int a,b;
+        scanf("%d%d",&a,&b);
+        unsigned long long x = phiSum[b]-phiSum[a-1];
+        printf("Case %d: %llu\n",t,x);
+    }
+    return 0;
+}
+
+\end{lstlisting}
+
+\section{Modular Arithmetic/CRT}
+\subsection*{\hyperlink{https://codeforces.com/problemset/problem/687/B}{\underline{Remainders Game}}}
+Today Pari and Arya are playing a game called Remainders.
+\\ \\
+Pari chooses two positive integer $x$ and $k$, and tells Arya $k$ but not $x$. Arya have to find the value \textbf{$x$ mod $k$}. There are $n$ ancient numbers $c_1,c_2,...,c_n$ and Pari has to tell Arya \textbf{$x$ mod $c_i$} if Arya wants. Given $k$ and the ancient values, tell us if Arya has a winning strategy independent of value of $x$ or not. Formally, is it true that Arya can understand the value \textbf{$x$ mod $k$} for any positive integer $x$?
+\\ \\
+Note, that \textbf{$x$ mod $y$} means the remainder of $x$ after dividing it by $y$.
+
+\subsection*{Input}
+The first line of the input contains two integers $n$ and $k$ $(1 \leq n, k \leq 1000000)$ - the number of ancient integers and value $k$ that is chosen by Pari.
+\\ \\
+The second line contains $n$ integers $c_1,c_2,...,c_n$ $(1 \leq c_i \leq 1000000)$.
+
+\subsection*{Output}
+Print "Yes" (without quotes) if Arya has a winning strategy independent of value of $x$, or "No" (without quotes) otherwise.
+
+\subsection*{Examples}
+input: \\
+4 5 \\
+2 3 5 12 
+\\
+output: \\
+Yes 
+\\ \\
+input: \\
+2 7 \\
+2 3 \\
+output: \\
+No 
+
+\subsection*{Note}
+In the first sample, Arya can understand \textbf{$x$ mod 5} because 5 is one of the ancient numbers.
+\\ \\
+In the second sample, Arya can't be sure what \textbf{$x$ mod 7} is. For example 1 and 7 have the same remainders after dividing by 2 and 3, but they differ in remainders after dividing by 7.
+
+
+\subsection*{Solution}
+\begin{lstlisting}[language=C++, caption={Remainders Game}, label={1st:code}, mathescape=true, breaklines=true]
+
+#include <bits/stdc++.h>
+using namespace std;
+
+inline int in() { int x; scanf("%d", &x); return x; }
+const long long N = 1200021;
+
+int cntP[N], isP[N];
+
+int main()
+{
+	for(int i = 2; i < N; i++)
+		if(!isP[i])
+			for(int j = i; j < N; j += i)
+				isP[j] = i;
+	int n = in(), k = in();
+	for(int i = 0; i < n; i++)
+	{
+		int x = in();
+		while(x > 1)
+		{
+			int p = isP[x];
+			int cnt = 0;
+			while(x % p == 0)
+			{
+				cnt++;
+				x /= p;
+			}
+			cntP[p] = max(cntP[p], cnt);
+		}
+	}
+	bool ok = 1;
+	while(k > 1)
+	{
+		ok &= (cntP[isP[k]] > 0);
+		cntP[isP[k]]--;
+		k /= isP[k];
+	}
+	cout << (ok ? "Yes\n" : "No\n");
+}
+\end{lstlisting}
+
+\section{Discrete Logarithms}
+\subsection*{\hyperlink{https://lightoj.com/problem/distributing-chocolates}{\underline{Distributing Chocolates}}}
+
+I have bought $n$ chocolates for my young cousins. Every chocolate is different. So, in the contest I added the problem that how many ways I can distribute the chocolates to my $K$ cousins. I can give more chocolates to some cousins, and may give no chocolate to some. For example, I have three cousins and I bought 2 chocolates $a$ and $b$. Then I can distribute them in the following 9 ways:
+\\ \\
+As the result can be large, I asked for the result modulo \textbf{100 000 007} (a prime). But after that I found that this problem is easier than I thought. So, I changed the problem a little bit. I will give you the number of my cousins $K$ and the result modulo $100000007 (10^8 + 7)$. Your task is to find the number of chocolates I have bought. If there are several solutions, you have to find the minimum one.
+
+\subsection*{Input}
+Input starts with an integer $T (\leq 1000)$, denoting the number of test cases.
+\\ \\
+Each case starts with a line containing two integers $K (2 \leq K \leq 10^7)$ and result $(0 \leq result < 100000007)$. You can assume that the input data is valid, that means a solution exists.
+
+\subsection*{Output}
+For each case, print the case number and the minimum possible number of chocolates I have bought.
+
+\subsection*{Examples}
+input: \\
+2 \\
+3 9 \\
+2 100 \\
+\\
+output: \\ 
+Case 1: 2 \\
+Case 2: 23502611
+
+\subsection*{Solution}
+NO TUTORIALS AVAILABLE
+
+
+\section{Number Systems}
+\subsection*{\hyperlink{https://lightoj.com/problem/trailing-zeroes-i}{\underline{Trailing Zeroes (I)}}}
+We know what a base of a number is and what the properties are. For example, we use decimal number system, where the base is \textbf{10} and we use the symbols - \textbf{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}. But in different bases we use different symbols. For example in binary number system we use only \textbf{0} and \textbf{1}.
+\\ \\
+Now in this problem, you are given an integer. You can convert it to any base you would want to. But the condition is that if you convert it to any base then the number in that base should have at least one trailing zero, that means a zero at the end.
+\\ \\
+For example, in decimal number system \textbf{2} doesn't have any trailing zero. But if we convert it to binary then 2 becomes $(10)_2$ and it contains a trailing zero. Given this task, you have to find the number of bases where the given number contains at least one trailing zero. You can use any base from two to infinity.
+
+\subsection*{Input}
+Input starts with an integer $T (\leq 10000)$, denoting the number of test cases.
+\\ \\
+Each case contains an integer $N (1 \leq N \leq 10^{12})$.
+\subsection*{Output}
+For each case, print the case number and the number of possible bases where $N$ contains at least one trailing zero.
+\subsection*{Examples}
+input: \\
+3 \\
+9 \\
+5 \\
+2 \\
+\\
+output: \\
+Case 1: 2 \\
+Case 2: 1 \\
+Case 3: 1 
+\subsection*{Note}
+For \textbf{9}, the possible bases are: \textbf{3} and \textbf{9}. Since in base \textbf{3}; \textbf{9} is represented as \textbf{100}, and in base \textbf{9}; \textbf{9} is represented as \textbf{10}. In both bases, \textbf{9} contains a trailing zero.
+
+\subsection*{Solution}
+\begin{lstlisting}[language=C++, caption={Trailing Zeroes (I)}, label={1st:code}, mathescape=true, breaklines=true]
+#include <bits/stdc++.h>
+using namespace std;
+#define m 1000010
+
+long long int primes[m], cnt, siv[m];
+
+void sieve()
+{
+    long long int i, j;
+    for (i=3; i<m; i+=2)
+        if(!siv[i])
+            for (j=i*i; j<m; j+=i+i)
+                siv[j]=1;
+    primes[cnt++]=2;
+    for (i=3; i<m; i+=2)
+        if(!siv[i]) primes[cnt++]=i;
+    return;
+}
+
+
+
+int main()
+{
+    sieve();
+    long long int t,c=0;
+    scanf("%lld",&t);
+    while(t--)
+    {
+        long long int n,sum=1,s,k,i;
+        scanf("%lld",&n);
+
+        // finding the number of divisors of N
+        for(i=0;i<m && primes[i]*primes[i]<=n;i++)
+        {
+            if(n%primes[i]==0)
+            {
+                k=0;
+                while(n%primes[i]==0)
+                {
+                    n/=primes[i];
+                    k++;
+                    if(n==0 || n==1)
+                        break;
+                }
+                sum*=k+1;
+            }
+
+        }
+
+        /* If the number N is divided by a prime number than the
+        sum has to be multiped by (1+1) where first 1 is the count of
+        that prime number, N is divisible by and second 1 is the plus one
+        of the formula. */
+
+        if(n!=1)
+            sum*=2;
+        printf("Case %lld: %lld\n",++c,sum-1);
+    }
+    return 0;
+}
+\end{lstlisting}
+
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{mybib}
+
+\end{document}
