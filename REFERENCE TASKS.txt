@@ -1,20 +1,16 @@
-Task1 - https://codeforces.com/problemset/problem/711/E
-
-Task2 - https://codeforces.com/contest/305/problem/B
-
-Task3 - https://lightoj.com/problem/how-many-points
-
-Task4 - https://lightoj.com/problem/efficient-pseudo-code
-
-Task5 - https://lightoj.com/problem/mathematically-hard
-
-Task6 - https://codeforces.com/problemset/problem/687/B
-
-Task7 - https://lightoj.com/problem/distributing-chocolates
-
-Task8 - https://lightoj.com/problem/trailing-zeroes-i
-
-Task9 - https://basecamp.eolymp.com/en/problems/647
-
-
-
+1. https://math.mit.edu/research/highschool/primes/circle/documents/2023/RoonakandC athal.pdf
+2. https://crypto.stanford.edu/pbc/notes/numbertheory/crt.html
+3. https://davidaltizio.web.illinois.edu/ModularArithmetic.pdf
+4. https://mit6875.github.io/HANDOUTS/numbertheory-lecnotes.pdf
+5. https://www.math.brown.edu/johsilve/frint.html
+6. BLA BLA BLA
+7. BLA BLA BLA
+8. Task 1: Zeus and The Birthday Paradox, Codeforces Problem 711E
+9. Task 2: Continued Fractions, Codeforces Contest 305B
+10. Task 3: How Many Points?, LightOJ Problem
+11. Task 4: Efficient Pseudo Code, LightOJ Problem
+12. Task 5: Mathematically Hard, LightOJ Problem
+13. Task 6: Remainders Game, Codeforces Problem 687B
+14. Task 7: Distributing Chocolates, LightOJ Problem
+15. Task 8: Trailing Zeroes (I), LightOJ Problem
+16. Task 9: Product of Coprimes, E-Olymp Problem 647
