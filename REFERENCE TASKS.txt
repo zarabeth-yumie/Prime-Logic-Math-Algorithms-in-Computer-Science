@@ -1,0 +1,20 @@
+Task1 - https://codeforces.com/problemset/problem/711/E
+
+Task2 - https://codeforces.com/contest/305/problem/B
+
+Task3 - https://lightoj.com/problem/how-many-points
+
+Task4 - https://lightoj.com/problem/efficient-pseudo-code
+
+Task5 - https://lightoj.com/problem/mathematically-hard
+
+Task6 - https://codeforces.com/problemset/problem/687/B
+
+Task7 - https://lightoj.com/problem/distributing-chocolates
+
+Task8 - https://lightoj.com/problem/trailing-zeroes-i
+
+Task9 - https://basecamp.eolymp.com/en/problems/647
+
+
+
