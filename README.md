@@ -23,13 +23,5 @@
 - **Hands-on problems**: Each chapter provides real-world tasks to enhance understanding.
 - **C++ implementations**: Includes code snippets demonstrating number theory algorithms in action.
 
-## Usage
-
-Clone this repository to get started:
-
-```bash
-git clone https://github.com/yourusername/PrimeLogic.git
-```
-
 ## LICENSE
 - This project is licensed under the MIT License.
