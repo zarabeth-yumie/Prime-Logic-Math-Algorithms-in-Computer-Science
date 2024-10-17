@@ -4,18 +4,19 @@
 
 ## Overview
 
-**Prime Logic** is a comprehensive guide to **number theory** and its applications in **computer science**. The book combines theoretical explanations with practical problem-solving tasks, primarily focused on algorithms implemented in **C++**. It’s designed for computer science students, competitive programmers, and math enthusiasts looking to deepen their understanding of number theory's role in algorithmic challenges.
+This book serves as a comprehensive guide to number theory, explaining its fundamental principles and how they integrate with computer science. It bridges the gap between mathematical theory and its algorithmic applications in computing, focusing particularly on topics such as prime numbers, modular arithmetic, Diophantine equations, Euler's Totient Function, and continued fractions. With each concept, the book provides detailed C++ code examples and problem-solving tasks to solidify understanding. This resource is tailored for students, programmers, and anyone eager to learn how number theory underpins algorithms in modern computing.
 
 ## Key Topics
 
-- **Divisibility, Primes, GCD/LCM**
-- **Modular Arithmetic & Chinese Remainder Theorem**
-- **Diophantine Equations**
+- **Divisibility, Primes, Co-Prime, GCD/LCM**
 - **Continued Fractions**
+- **Diophantine Equations**
+- **Functions: Counting Divisors/Divisor Sum**
 - **Euler's Totient Function**
+- **Modular Arithmetic & Chinese Remainder Theorem**
 - **Discrete Logarithms**
-- **Primitive Roots**
 - **Number Systems**
+- **Primitive Roots**
 
 ## Features
 
