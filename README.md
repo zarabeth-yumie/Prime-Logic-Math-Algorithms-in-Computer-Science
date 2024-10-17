@@ -26,7 +26,7 @@ This book serves as a comprehensive guide to number theory, explaining its funda
 
 ## References
 
-1. [https://math.mit.edu/research/highschool/primes/circle/documents/2023/Roonak_ndg/cathal.pdf](https://math.mit.edu/research/highschool/primes/circle/documents/2023/Roonak_ndg/cathal.pdf)
+1. [https://math.mit.edu/research/highschool/primes/circle/documents/2023/Roonak_and_Cathal.pdf](https://math.mit.edu/research/highschool/primes/circle/documents/2023/Roonak_and_Cathal.pdf)
 2. [https://crypto.stanford.edu/pbc/notes/numbertheory/crt.html](https://crypto.stanford.edu/pbc/notes/numbertheory/crt.html)
 3. [https://davidaltizio.web.illinois.edu/ModularArithmetic.pdf](https://davidaltizio.web.illinois.edu/ModularArithmetic.pdf)
 4. [https://mit6875.github.io/HANDOUTS/numbertheory-lecnotes.pdf](https://mit6875.github.io/HANDOUTS/numbertheory-lecnotes.pdf)
