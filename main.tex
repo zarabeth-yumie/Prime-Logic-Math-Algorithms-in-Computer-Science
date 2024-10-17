@@ -55,7 +55,7 @@
 
 % Title page setup
 \title{\Huge \textbf{Prime Logic: Math Algorithms in Computer Science}\\[0.5cm]
-\Large A collection of math-based programming problems}
+\Large Number Theory Fundamentals and Algorithmic Applications}
 \author{\textbf{Mertkan Karaaslan (Zarabeth)}}
 \date{}
 
@@ -72,7 +72,7 @@
 
 \begin{center}
     \textbf{Abstract}\\[0.5cm]
-    This document contains a comprehensive list of challenging mathematical problems sourced from various online competitive programming platforms. The focus is on algorithms involving number theory, combinatorics, and advanced mathematical techniques, all with detailed examples and solutions in C++. It serves as a practice guide for computer science students, competitive programmers, and anyone interested in mastering these topics.
+    This book serves as a comprehensive guide to number theory, explaining its fundamental principles and how they integrate with computer science. It bridges the gap between mathematical theory and its algorithmic applications in computing, focusing particularly on topics such as prime numbers, modular arithmetic, Diophantine equations, Euler's Totient Function, and continued fractions. With each concept, the book provides detailed C++ code examples and problem-solving tasks to solidify understanding. This resource is tailored for students, programmers, and anyone eager to learn how number theory underpins algorithms in modern computing.
 \end{center}
 
 \vfill
@@ -85,11 +85,7 @@
 \rhead{Mertkan Karaaslan(Zarabeth)}
 \section*{Introduction to Number Theory}
 
-Number theory is a deep and extensive branch of mathematics that deals with integers and their properties. It spans several fundamental topics, such as prime numbers, divisibility, modular arithmetic, Diophantine equations, and more. Number theory provides the backbone for many algorithms used in computer science, especially in areas like cryptography, data structures, and computational complexity. 
-
-This document focuses on various number-theoretic concepts, including their theoretical foundations and practical applications, particularly in solving algorithmic challenges in competitive programming. Each section covers a key topic and provides a problem that illustrates its significance in computer science.
-
-
+Number theory is a deep and extensive branch of mathematics that deals with integers and their properties. It spans several fundamental topics, such as prime numbers, divisibility, modular arithmetic, Diophantine equations, Euler's Totient Function and more. Number theory provides the backbone for many algorithms used in computer science, especially in areas like cryptography, data structures, and computational complexity. 
 
 \section*{Divisibility/Primes/Co-prime/GCD/LCM}
 
@@ -570,7 +566,6 @@ int main() {
 
 This algorithm works by reducing the exponentiation problem into smaller parts using the properties of exponents.
 
----
 
 \subsection*{Chinese Remainder Theorem (CRT)}
 
@@ -607,7 +602,6 @@ Where:
 - \(N_i = \frac{N}{n_i}\)
 - \(y_i\) is the modular inverse of \(N_i\) modulo \(n_i\), i.e., \(N_i \times y_i \equiv 1 \pmod{n_i}\).
 
----
 
 \subsection*{Example Code: Chinese Remainder Theorem in C++}
 
@@ -748,8 +742,6 @@ int main() {
 }
 \end{lstlisting}
 
-### Example
-
 Let’s consider an example where we need to solve \(2^x \equiv 15 \pmod{29}\) using the Baby-Step Giant-Step algorithm.
 
 1. Baby Steps: We compute \(2^j \mod 29\) for \(j = 0, 1, \dots, 4\):
@@ -861,18 +853,6 @@ int main() {
     return 0;
 }
 \end{lstlisting}
-
-\subsection*{Importance of Number Systems in Computer Science}
-
-Number systems are essential for understanding how computers perform arithmetic and store data. Here are a few reasons why number systems are so important in computing:
-
-1. Binary System: Since computers operate using transistors, which have two states (on/off), the binary system is the foundation of all computing processes.
-2. Octal and Hexadecimal Systems: These systems provide shorthand notations for binary numbers. Hexadecimal, in particular, is widely used to represent memory addresses and colors in digital systems because it is more compact and easier to read than binary.
-3. Conversions Between Systems: Converting numbers between these systems is a crucial operation, especially when working with low-level programming languages, assembly, and hardware.
-
-\textbf{Example Problem: Binary to Decimal Conversion} demonstrates how to convert a binary number into its decimal equivalent by parsing each bit from right to left and multiplying by powers of 2.
-
-Overall, understanding different number systems allows computer scientists to design efficient algorithms and systems that interact with hardware effectively. Mastery of these conversions is crucial for both software development and hardware design.
 
 
 \section*{Primitive Root}
@@ -989,7 +969,7 @@ int main() {
 
 \section{Divisibility/Primes/Co-prime/GCD/LCM}
 
-\subsection*{\href{https://codeforces.com/problemset/problem/711/E}{\underline{Zeus and The Birthday Paradox [1]}}}
+\subsection*{\href{https://codeforces.com/problemset/problem/711/E}{\underline{Zeus and The Birthday Paradox [6]}}}
 
 Zeus has recently found an interesting concept called the Birthday Paradox. It states that given a random set of 23 people, there is around $50\%$ chance that some two of them share the same birthday. Zeus finds this very interesting, and decides to test this with the inhabitants of Tedland.
 \\ \\
@@ -1099,7 +1079,7 @@ int main()
 \end{lstlisting}
 
 \section{Continued Fraction}
-\subsection*{\href{https://codeforces.com/contest/305/problem/B}{\underline{Continued Fractions [2]}}}
+\subsection*{\href{https://codeforces.com/contest/305/problem/B}{\underline{Continued Fractions [7]}}}
 
 A continued fraction of height $n$ is a fraction of form $a_1 + \frac{1}{a_2 + \frac{1}{a_3 + \cdots + \frac{1}{a_n}}}$. You are given two rational numbers, one is represented as $\frac{p}{q}$ and the other one is represented as a finite fraction of height $n$. Check if they are equal.
 
@@ -1217,7 +1197,7 @@ int main(){
 \end{lstlisting}
 \section{Diophantine Equations}
 
-\subsection*{\href{https://lightoj.com/problem/how-many-points}{\underline{How Many Points? [3]}}} 
+\subsection*{\href{https://lightoj.com/problem/how-many-points}{\underline{How Many Points? [8]}}} 
 Given two points $A$ and $B$ on the $X-Y$ plane, output the number of the lattice points on the segment $AB$.
 \\ \\
 Note that $A$ and $B$ are also lattice points. Those who are confused with the definition of lattice points, lattice points are those points which have both $x$ and $y$ integer co-ordinates.
@@ -1271,7 +1251,7 @@ int main() {
 
 \section{Functions: Counting Divisors/Divisor Sum}
 
-\subsection*{\href{https://lightoj.com/problem/efficient-pseudo-code}{\underline{Efficient Pseudo Code [4]}}}
+\subsection*{\href{https://lightoj.com/problem/efficient-pseudo-code}{\underline{Efficient Pseudo Code [9]}}}
 
 Sometimes it's quite useful to write pseudo codes for problems. Actually you can write the necessary steps to solve a particular problem. In this problem you are given a pseudo code to solve a problem and you have to implement the pseudo code efficiently. Simple! Isn't it? :)
 \\
@@ -1423,7 +1403,7 @@ int main()
 
 
 \section{Function: Totient and Similar}
-\subsection*{\href{https://lightoj.com/problem/mathematically-hard}{\underline{Mathematically Hard [5]}}}
+\subsection*{\href{https://lightoj.com/problem/mathematically-hard}{\underline{Mathematically Hard [10]}}}
 Mathematically some problems look hard. But with the help of the computer, some problems can be easily solvable.
 \\ \\
 In this problem, you will be given two integers $a$ and $b$. You have to find the summation of the scores of the numbers from a to b (inclusive). The score of a number is defined as the following function:
@@ -1517,7 +1497,7 @@ int main(){
 \end{lstlisting}
 
 \section{Modular Arithmetic/CRT}
-\subsection*{\href{https://codeforces.com/problemset/problem/687/B}{\underline{Remainders Game [6]}}}
+\subsection*{\href{https://codeforces.com/problemset/problem/687/B}{\underline{Remainders Game [11]}}}
 Today Pari and Arya are playing a game called Remainders.
 \\ \\
 Pari chooses two positive integer $x$ and $k$, and tells Arya $k$ but not $x$. Arya have to find the value \textbf{$x$ mod $k$}. There are $n$ ancient numbers $c_1,c_2,...,c_n$ and Pari has to tell Arya \textbf{$x$ mod $c_i$} if Arya wants. Given $k$ and the ancient values, tell us if Arya has a winning strategy independent of value of $x$ or not. Formally, is it true that Arya can understand the value \textbf{$x$ mod $k$} for any positive integer $x$?
@@ -1596,7 +1576,7 @@ int main()
 \end{lstlisting}
 
 \section{Discrete Logarithms}
-\subsection*{\href{https://lightoj.com/problem/distributing-chocolates}{\underline{Distributing Chocolates [7]}}}
+\subsection*{\href{https://lightoj.com/problem/distributing-chocolates}{\underline{Distributing Chocolates [12]}}}
 
 I have bought $n$ chocolates for my young cousins. Every chocolate is different. So, in the contest I added the problem that how many ways I can distribute the chocolates to my $K$ cousins. I can give more chocolates to some cousins, and may give no chocolate to some. For example, I have three cousins and I bought 2 chocolates $a$ and $b$. Then I can distribute them in the following 9 ways:
 
@@ -1735,7 +1715,7 @@ int main() {
 
 
 \section{Number Systems}
-\subsection*{\href{https://lightoj.com/problem/trailing-zeroes-i}{\underline{Trailing Zeroes (I) [8]}}}
+\subsection*{\href{https://lightoj.com/problem/trailing-zeroes-i}{\underline{Trailing Zeroes (I) [13]}}}
 We know what a base of a number is and what the properties are. For example, we use decimal number system, where the base is \textbf{10} and we use the symbols - \textbf{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}}. But in different bases we use different symbols. For example in binary number system we use only \textbf{0} and \textbf{1}.
 \\ \\
 Now in this problem, you are given an integer. You can convert it to any base you would want to. But the condition is that if you convert it to any base then the number in that base should have at least one trailing zero, that means a zero at the end.
@@ -1830,7 +1810,7 @@ int main()
 
 
 \section{Primitive Root}
-\subsection*{\href{https://basecamp.eolymp.com/en/problems/647}{\underline{Product of coprimes [9]}}}
+\subsection*{\href{https://basecamp.eolymp.com/en/problems/647}{\underline{Product of coprimes [14]}}}
 You are given a positive integer \textbf{m}. Calculate the product of all positive integers less then or equal to \textbf{m} and coprime with \textbf{m}, and give the answer modulo \textbf{m}.
 \subsection*{Input}
 The only line of input file contains a positive integer $m \leq 10^{18}$.
@@ -1944,10 +1924,6 @@ int main() {
     
     \item \href{https://www.math.brown.edu/johsilve/frint.html}{https://www.math.brown.edu/johsilve/frint.html}
 
-    \item \href{PASTE THE LINKE HERE}{BLA BLA BLA}
-  
-    \item \href{PASTE THE LINKE HERE}{BLA BLA BLA}
-
     \item \href{https://codeforces.com/problemset/problem/711/E}{Task 1: Zeus and The Birthday Paradox, Codeforces Problem 711E}
     \item \href{https://codeforces.com/contest/305/problem/B}{Task 2: Continued Fractions, Codeforces Contest 305B}
     \item \href{https://lightoj.com/problem/how-many-points}{Task 3: How Many Points?, LightOJ Problem}
@@ -1957,9 +1933,6 @@ int main() {
     \item \href{https://lightoj.com/problem/distributing-chocolates}{Task 7: Distributing Chocolates, LightOJ Problem}
     \item \href{https://lightoj.com/problem/trailing-zeroes-i}{Task 8: Trailing Zeroes (I), LightOJ Problem}
     \item \href{https://basecamp.eolymp.com/en/problems/647}{Task 9: Product of Coprimes, E-Olymp Problem 647}
-
-
-
 
 
 
