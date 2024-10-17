@@ -72,7 +72,9 @@
 
 \begin{center}
     \textbf{Abstract}\\[0.5cm]
-    This book serves as a comprehensive guide to number theory, explaining its fundamental principles and how they integrate with computer science. It bridges the gap between mathematical theory and its algorithmic applications in computing, focusing particularly on topics such as prime numbers, modular arithmetic, Diophantine equations, Euler's Totient Function, and continued fractions. With each concept, the book provides detailed C++ code examples and problem-solving tasks to solidify understanding. This resource is tailored for students, programmers, and anyone eager to learn how number theory underpins algorithms in modern computing.
+    This book serves as a comprehensive guide to number theory, explaining its fundamental principles and how they integrate with computer science. It bridges the gap between mathematical theory and its algorithmic applications in computing, focusing particularly on topics such as Number Systems, Prime Numbers, Modular Arithmetic, Diophantine equations, Euler’s Totient Function, Discrete Logarithms, Chinese Remainder Theorem, and Continued Fractions. With each concept, the book provides detailed C++ code examples and problem-solving tasks to solidify understanding.
+    
+    In addition to its focus on algorithmic applications, this book also serves as a comprehensive guide to the Olympiad mathematics world, offering insights and techniques that are invaluable for students participating in mathematical Olympiads. This resource is tailored for students, programmers, and anyone eager to learn how number theory underpins algorithms in modern computing and problem-solving competitions.
 \end{center}
 
 \vfill
@@ -83,9 +85,33 @@
 \pagestyle{fancy}
 \lhead{Prime Logic: Math Algorithms in Computer Science}
 \rhead{Mertkan Karaaslan(Zarabeth)}
-\section*{Introduction to Number Theory}
 
-Number theory is a deep and extensive branch of mathematics that deals with integers and their properties. It spans several fundamental topics, such as prime numbers, divisibility, modular arithmetic, Diophantine equations, Euler's Totient Function and more. Number theory provides the backbone for many algorithms used in computer science, especially in areas like cryptography, data structures, and computational complexity. 
+\section*{What Is Number Theory?}
+
+What are integers? Which integers are interesting? What can we do with them? How do we use them? How do they relate to mathematics? How do we use them to count more easily? What numbers can we make with them? How do we use them to write secret messages? How do we use them to read secret messages? How do we use them to run computers? How do we use them to run computers \textit{more efficiently}? How do they help us with physics? What do they have to do with biology? How do we use them to talk with our spacecrafts?
+
+These are questions about the subject of number theory. Number theory is the study of integers. As ancient as number theory is, humans are still uncovering mysteries behind integers and learning to use them in powerful new ways.
+
+\begin{tabbing}
+\hspace{4cm} \= \hspace{3cm} \= \kill
+\textbf{Integers:} \> $..., -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, ...$ \\
+\textbf{Natural Numbers:} \> $1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...$ \\
+\textbf{Prime Numbers:} \> $2, 3, 5, 7, 11, 13, 17, 19, 23, ...$ \\
+\textbf{Composite Numbers:} \> $4, 6, 8, 9, 10, 12, 14, 15, 16, ...$ \\
+\textbf{Even Numbers:} \> $..., -6, -4, -2, 0, 2, 4, 6, 8, 10, 12, ...$ \\
+\textbf{Odd Numbers:} \> $..., -7, -5, -3, -1, 1, 3, 5, 7, 9, 11, ...$ \\
+\textbf{Perfect Squares:} \> $0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, ...$ \\
+\textbf{Negative Cubes:} \> $-1, -8, -27, -64, -125, -216, -343, ...$ \\
+\textbf{Powers of 2:} \> $1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, ...$ \\
+\textbf{Abundant Numbers:} \> $12, 18, 20, 24, 30, 36, 40, 42, 48, 54, ...$ \\
+\textbf{Palindromes:} \> $11, 313, 838, 3443, 7447, 57875, 10000001, ...$ \\
+\textbf{Fibonacci Numbers:} \> $1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$ \\
+\textbf{Base Numbers:} \> $1_9, 44_5, 154_6, 10110_2, 2A41_{12}, ...$ \\
+\textbf{Modulo 8 Residues:} \> $0, 1, 2, 3, 4, 5, 6, 7$ \\
+\end{tabbing}
+
+Each of these types of integers has stories—some that go back thousands of years. Since we use integers to describe so many things, knowing these stories helps us understand the world around us.
+
 
 \section*{Divisibility/Primes/Co-prime/GCD/LCM}
 
@@ -208,8 +234,6 @@ int main() {
 
 \section*{Continued Fractions}
 
-\subsection*{Introduction to Continued Fractions}
-
 Continued fractions provide an alternative way to represent numbers as sums of integers and reciprocals. These are written as:
 
 \[
@@ -273,8 +297,6 @@ int main() {
 }
 \end{lstlisting}
 
-\subsection*{Explanation}
-
 This program computes the continued fraction of a rational number by repeatedly dividing the numerator by the denominator and capturing the integer part of the result. The remainder then becomes the new denominator, and the process repeats until the denominator becomes zero. This is a basic implementation of the Euclidean algorithm, which lies at the heart of continued fraction calculations.
 
 \textbf{Output Example:}
@@ -314,7 +336,7 @@ Using the Extended Euclidean Algorithm, we can find one particular solution and 
 
 The following C++ code solves a linear Diophantine equation of the form \(ax + by = c\).
 
-\begin{lstlisting}[language=C++, caption={Solving Linear Diophantine Equations}, mathescape=true]
+\begin{lstlisting}[language=C++, mathescape=true]
 #include <iostream>
 using namespace std;
 
@@ -357,17 +379,18 @@ int main() {
 }
 \end{lstlisting}
 
-\subsection*{Explanation of the Code}
+- The `\texttt{extended\_gcd}` function computes the GCD of \(a\) and \(b\) while also finding \(x\) and \(y\) such that \(ax + by = \text{GCD}(a, b)\).
 
-- The `extended_gcd` function computes the GCD of \(a\) and \(b\) while also finding \(x\) and \(y\) such that \(ax + by = \text{GCD}(a, b)\).
-- The `diophantine` function checks if a solution exists by verifying if \(c\) is divisible by the GCD of \(a\) and \(b\). If a solution exists, it scales the values of \(x\) and \(y\) accordingly.
+- The `\texttt{diophantine}` function checks if a solution exists by verifying if \(c\) is divisible by the GCD of \(a\) and \(b\). If a solution exists, it scales the values of \(x\) and \(y\) accordingly.
+
 - The output gives one solution for \(x\) and \(y\). Further solutions can be generated by adding multiples of \(\frac{b}{\text{GCD}}\) to \(x\) and subtracting multiples of \(\frac{a}{\text{GCD}}\) from \(y\).
+
 
 
 
 \section*{Functions: Counting Divisors/Divisor Sum}
 
-\subsection*{Divisor Function Overview}
+\subsection*{Divisor Function}
 
 The divisor function \(d(n)\), also known as the sigma function \(\sigma(n)\), counts the number of divisors of an integer \(n\). For a given integer \(n\), the divisor function is defined as:
 
@@ -435,7 +458,7 @@ This formula allows the divisor sum function to be computed efficiently for larg
 
 
 
-\section*{Function: Totient and Similar}
+\section*{Euler’s Totient Function}
 
 Euler’s Totient function, often denoted as \(\phi(n)\), is a fundamental concept in number theory. The function counts the number of integers less than \(n\) that are relatively prime to \(n\), i.e., numbers whose greatest common divisor with \(n\) is 1. 
 
@@ -586,8 +609,6 @@ x \equiv a_k \pmod{n_k}
 
 has a unique solution modulo \(N = n_1 \times n_2 \times \dots \times n_k\). That is, there exists a unique \(x \pmod{N}\) that satisfies all the congruences.
 
-### Explanation
-
 The key idea behind the CRT is to break down a problem into smaller problems using moduli that are easier to solve. Since the moduli are pairwise coprime, we can treat each congruence separately, and then "piece" together the solutions.
 
 #### Step-by-step:
@@ -657,7 +678,6 @@ This code finds the solution for two congruences using the Chinese Remainder The
 
 The discrete logarithm problem is the problem of finding the integer \(x\) in the equation \(g^x \equiv h \pmod{p}\), where \(g\) is a base, \(p\) is a prime modulus, and \(h\) is the result. This problem is considered computationally hard, especially when \(p\) is large. It plays a fundamental role in modern cryptographic protocols such as the Diffie-Hellman key exchange and ElGamal encryption.
 
-\subsection*{Definition and Problem Statement}
 
 Given a prime number \(p\), a generator \(g\) of the multiplicative group \( \mathbb{Z}_p^* \), and an element \(h\), the discrete logarithm problem asks to find \(x\) such that:
 
@@ -880,10 +900,6 @@ Since all elements of \( \mathbb{Z}_7^* \) appear in the list of powers, 3 is a 
 ### Existence of Primitive Roots
 
 It is a well-established result that a prime number \(p\) has at least one primitive root. In fact, the number of primitive roots modulo a prime \(p\) is given by Euler's totient function \(\phi(p-1)\), which counts how many integers less than \(p-1\) are co-prime with \(p-1\). For non-prime numbers, not every number has a primitive root.
-
-### Applications of Primitive Roots
-
-Primitive roots are used extensively in cryptography, particularly in the Diffie-Hellman key exchange, where the security of the system relies on the difficulty of the Discrete Logarithm Problem. The existence of a primitive root ensures that the logarithmic problem has a well-defined solution for every possible input.
 
 ### Algorithm for Finding Primitive Roots
 
@@ -1402,7 +1418,7 @@ int main()
 \end{lstlisting}
 
 
-\section{Function: Totient and Similar}
+\section{Euler’s Totient Function}
 \subsection*{\href{https://lightoj.com/problem/mathematically-hard}{\underline{Mathematically Hard [10]}}}
 Mathematically some problems look hard. But with the help of the computer, some problems can be easily solvable.
 \\ \\
